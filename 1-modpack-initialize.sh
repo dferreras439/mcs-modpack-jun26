@@ -43,6 +43,10 @@ run_packwiz() {
     )
 }
 
+run_mc_image_helper() {
+    "$MC_IMAGE_HELPER" "$@"
+}
+
 truthy() {
     case "${1:-}" in
         1|true|TRUE|yes|YES|y|Y) return 0 ;;
@@ -128,7 +132,7 @@ install_curseforge() {
     if [ -n "${MODPACK_ZIP_URL:-}" ]; then
         downloaded_zip="$CACHE_DIR/curseforge-modpack.zip"
         echo "Downloading CurseForge modpack ZIP with mc-image-helper..."
-        "$MC_IMAGE_HELPER" get "$MODPACK_ZIP_URL" -o "$downloaded_zip"
+        run_mc_image_helper get "$MODPACK_ZIP_URL" -o "$downloaded_zip"
         CF_MODPACK_ZIP="$downloaded_zip"
     fi
 
@@ -193,7 +197,7 @@ install_curseforge() {
     fi
 
     echo "Installing CurseForge modpack with mc-image-helper..."
-    "${args[@]}"
+    run_mc_image_helper "${args[@]}"
 }
 
 install_modrinth() {
@@ -227,7 +231,7 @@ install_modrinth() {
     fi
 
     echo "Installing Modrinth modpack with mc-image-helper..."
-    "${args[@]}"
+    run_mc_image_helper "${args[@]}"
 }
 
 write_packwiz_ignore() {
