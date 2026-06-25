@@ -42,7 +42,8 @@ cp .env.example .env
 The bootstrap script installs:
 
 * `bin/packwiz`
-* `bin/mc-image-helper`
+* `bin/mc-image-helper` wrapper
+* `.tools/mc-image-helper-<version>/` with the full mc-image-helper `bin/` and `lib/` distribution
 
 `rclone` is used for publishing. If it is already installed, bootstrap links it into `bin/rclone`; otherwise install it separately or set `RCLONE=/path/to/rclone` before publishing.
 
