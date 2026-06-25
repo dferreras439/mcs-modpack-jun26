@@ -1,0 +1,65 @@
+# Local tools
+/bin/
+
+# Env and secrets
+.env
+.env.*
+*.secret
+
+# Downloaded modpack archives / manual download repo
+*.zip
+/downloads/
+
+# Downloaded mod jars and packaged binaries
+publish/mods/*.jar
+publish/**/*.jar
+
+# Downloaded resource packs / shader packs
+publish/resourcepacks/*.zip
+publish/shaderpacks/*.zip
+
+# Minecraft runtime data
+publish/saves/
+publish/screenshots/
+publish/logs/
+publish/crash-reports/
+publish/backups/
+
+# Generated server files
+server/
+publish/server/
+publish/libraries/
+publish/versions/
+publish/world/
+publish/run.sh
+publish/run.bat
+publish/eula.txt
+publish/server.properties
+publish/user_jvm_args.txt
+
+# Caches
+.cache/
+packwiz-cache/
+publish/.cache/
+publish/packwiz-cache/
+
+# Launcher files
+instance.cfg
+mmc-pack.json
+launcher_profiles.json
+usercache.json
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
