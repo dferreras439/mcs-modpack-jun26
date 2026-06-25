@@ -6,12 +6,9 @@ ENV_FILE="${ENV_FILE:-$ROOT_DIR/.env}"
 PACK_DIR="${PACK_DIR:-$ROOT_DIR/publish}"
 PACKWIZ="${PACKWIZ:-$ROOT_DIR/bin/packwiz}"
 
-if [ -f "$ENV_FILE" ]; then
-    set -a
-    # shellcheck disable=SC1090
-    source "$ENV_FILE"
-    set +a
-fi
+# shellcheck source=scripts/load-env.sh
+source "$ROOT_DIR/scripts/load-env.sh"
+load_env_file "$ENV_FILE"
 
 PACK_DIR="${PACK_DIR:-$ROOT_DIR/publish}"
 PACKWIZ="${PACKWIZ:-$ROOT_DIR/bin/packwiz}"

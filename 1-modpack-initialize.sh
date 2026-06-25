@@ -10,12 +10,9 @@ CACHE_DIR="${CACHE_DIR:-$ROOT_DIR/.cache/modpack-source}"
 WIPE_PACK_DIR="${WIPE_PACK_DIR:-true}"
 MODPACK_SOURCE="${MODPACK_SOURCE:-curseforge}"
 
-if [ -f "$ENV_FILE" ]; then
-    set -a
-    # shellcheck disable=SC1090
-    source "$ENV_FILE"
-    set +a
-fi
+# shellcheck source=scripts/load-env.sh
+source "$ROOT_DIR/scripts/load-env.sh"
+load_env_file "$ENV_FILE"
 
 PACK_DIR="${PACK_DIR:-$ROOT_DIR/publish}"
 PACKWIZ="${PACKWIZ:-$ROOT_DIR/bin/packwiz}"
@@ -44,7 +41,29 @@ run_packwiz() {
 }
 
 run_mc_image_helper() {
-    "$MC_IMAGE_HELPER" "$@"
+    local -a env_args
+    env_args=(
+        -u CF_MODPACK_ZIP
+        -u CF_MODPACK_MANIFEST
+        -u CF_PAGE_URL
+        -u CF_SLUG
+        -u CF_FILE_ID
+        -u CF_FILENAME_MATCHER
+        -u CF_DOWNLOADS_REPO
+        -u CF_MOD_LOADER_VERSION
+        -u CF_EXCLUDE_INCLUDE_FILE
+        -u CF_EXCLUDE_MODS
+        -u CF_FORCE_INCLUDE_MODS
+        -u CF_EXCLUDE_ALL_MODS
+        -u CF_OVERRIDES_EXCLUSIONS
+        -u CF_IGNORE_MISSING_FILES
+    )
+
+    if [ -n "${CF_API_KEY:-}" ]; then
+        env_args+=(CF_API_KEY="$CF_API_KEY")
+    fi
+
+    env "${env_args[@]}" "$MC_IMAGE_HELPER" "$@"
 }
 
 truthy() {

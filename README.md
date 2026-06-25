@@ -39,6 +39,9 @@ cp .env.example .env
 ./0-bootstrap.sh
 ```
 
+
+`.env` is parsed literally by the scripts, not shell-sourced. Secrets such as `CF_API_KEY` may contain `$` characters without escaping, and blank variables are not exported to `mc-image-helper` as empty options.
+
 The bootstrap script installs:
 
 * `bin/packwiz`

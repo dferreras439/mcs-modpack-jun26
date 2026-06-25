@@ -8,12 +8,9 @@ RCLONE="${RCLONE:-$ROOT_DIR/bin/rclone}"
 RCLONE_REMOTE="${RCLONE_REMOTE:-r2}"
 R2_PREFIX="${R2_PREFIX:-}"
 
-if [ -f "$ENV_FILE" ]; then
-    set -a
-    # shellcheck disable=SC1090
-    source "$ENV_FILE"
-    set +a
-fi
+# shellcheck source=scripts/load-env.sh
+source "$ROOT_DIR/scripts/load-env.sh"
+load_env_file "$ENV_FILE"
 
 PACK_DIR="${PACK_DIR:-$ROOT_DIR/publish}"
 RCLONE="${RCLONE:-$ROOT_DIR/bin/rclone}"
@@ -60,8 +57,9 @@ set_rclone_env_default() {
     local default_value="$2"
     local current_value="${!name:-}"
     if [ -z "$current_value" ]; then
-        export "${name}=${default_value}"
+        current_value="$default_value"
     fi
+    export "${name}=${current_value}"
 }
 
 if [ -n "${R2_ACCOUNT_ID:-}" ]; then

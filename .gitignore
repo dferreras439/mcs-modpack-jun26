@@ -5,6 +5,7 @@
 # Env and secrets
 .env
 .env.*
+!.env.example
 *.secret
 
 # Downloaded modpack archives / manual download repo
